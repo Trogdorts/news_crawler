@@ -1,0 +1,6 @@
+logging
+newspaper4k
+unidecode
+PyYAML
+lxml_html_clean
+typing_extensions
