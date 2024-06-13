@@ -164,4 +164,4 @@ cython_debug/
 __pycache__/
 *.pyc
 logs/
-.idea
+.idea/
