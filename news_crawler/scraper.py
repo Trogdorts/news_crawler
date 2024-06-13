@@ -177,6 +177,11 @@ class NewsCrawler:
 if __name__ == "__main__":
     # sys.excepthook = custom_excepthook
     #TODO - batch save files to cut down on write speeds
+    #TODO - create rotating log files
+    #TODO - add abiltiy to compress folders?
+    #TODO - add ability to scrape wayback
+    #TODO - add in the ability to send web updates to cron scheduler
+    #TODO - add a function that will generate a empty config file
     try:
         config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
         config = ConfigHandler.load_config(config_path)
