@@ -10,6 +10,8 @@ import sys
 import traceback
 from logging_handler import LoggingHandler
 from config_handler import ConfigHandler
+import platform
+
 
 
 # Function to extract base_urls from the already loaded config
@@ -43,14 +45,27 @@ def check_and_create_base_directory(base_directory):
         logging.critical(f"Error checking or creating base directory: {e}")
         raise
 
-def clean_filename(title, max_length=255):
+
+def clean_filename(title, os_type):
+    max_length = 255
+    windows_restricted_chars = r'[<>:"/\\|?*]'  # Restricted characters for Windows
+    linux_restricted_chars = r'[<>:"/\\|?*\']'  # Restricted characters for Linux
+
     try:
-        logging.debug("Cleaning filename for title: %s", title)
+        logging.debug(f"Cleaning filename for title: {title}")
         title_ascii = unidecode(title)
-        title_clean = re.sub(r'[<>:"/\\|?*\']', '', title_ascii)
-        cleaned_title = title_clean[:max_length]
-        logging.debug("Cleaned filename: %s", cleaned_title)
-        return cleaned_title
+
+        if os_type.lower() == 'linux':
+            title_clean = re.sub(linux_restricted_chars, '', title_ascii)
+        else:
+            title_clean = re.sub(windows_restricted_chars, '', title_ascii)
+            # Remove trailing dots and spaces for Windows
+            title_clean = title_clean.rstrip('. ')
+            # Apply max length restriction for Windows
+            title_clean = title_clean[:max_length]
+
+        logging.debug(f"Cleaned filename: {title_clean}")
+        return title_clean
     except Exception as e:
         logging.error(f"Error cleaning filename: {e}")
         return "unknown_title"
@@ -80,7 +95,7 @@ def create_directories(path):
     except Exception as e:
         logging.error(f"An error occurred while creating directories: %s", e)
 
-def save_article(article, source, base_archive_directory):
+def save_article(article, source, base_archive_directory, os_type):
     try:
         publish_date = article.publish_date
         title = article.title
@@ -158,7 +173,7 @@ class NewsCrawler:
         except Exception as e:
             logging.error(f"Error crawling articles.")
 
-    def extract_information(self):
+    def extract_information(self, os_type):
         try:
             logging.info("Extracting information from articles")
             for source in self.sources:
@@ -168,7 +183,7 @@ class NewsCrawler:
                         article.download()
                         article.parse()
                         article.nlp()
-                        save_article(article, source, base_archive_directory)
+                        save_article(article, source, base_archive_directory, os_type)
                     except Exception as e:
                         logging.error(f"Error processing article: {e}")
         except Exception as e:
@@ -182,6 +197,8 @@ if __name__ == "__main__":
     #TODO - add ability to scrape wayback
     #TODO - add in the ability to send web updates to cron scheduler
     #TODO - add a function that will generate a empty config file
+
+
     try:
         config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
         config = ConfigHandler.load_config(config_path)
@@ -193,6 +210,7 @@ if __name__ == "__main__":
         max_workers = config['settings'].get('max_workers', 5)  # Default to 5 workers if not specified
         sources_per_batch = config['settings'].get('sources_per_batch', 2)  # Default to 10 sources per batch if not specified
         first_run = True
+        os_type = platform.system()
 
         while True:
             source_urls = get_source_urls(config)
@@ -201,7 +219,7 @@ if __name__ == "__main__":
                 crawler = NewsCrawler(batch_urls)
                 crawler.build_sources(max_workers)
                 crawler.crawl_articles()
-                crawler.extract_information()
+                crawler.extract_information(os_type=os_type)
             if run_once:
                 logging.info(f"Exiting program after running once.")
                 break
