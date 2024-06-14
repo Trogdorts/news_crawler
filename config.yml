@@ -1,5 +1,6 @@
 logging:
-  level: INFO
+  file_level: INFO
+  console_level: DEBUG
   file: logs/app.log
 settings:
   base_archive_dir: /mnt/nas/data/archive/news
