@@ -165,6 +165,7 @@ cython_debug/
 logs/
 
 # Pycharm
+.idea
 .idea/
 __pycache__/
 *.pyc
