@@ -2,8 +2,8 @@ logging:
   level: INFO
   file: logs/app.log
 settings:
-  base_archive_dir: Z:\data\archive\news
-  archive_index_file: Z:\data\archive\index.csv
+  base_archive_dir: /mnt/nas/data/archive/news
+  archive_index_file: 
   start_date: 2024/05/01
   end_date:
   run_once: false
