@@ -6,13 +6,9 @@ from datetime import datetime
 import os
 import re
 from unidecode import unidecode
-import sys
-import traceback
 from logging_handler import LoggingHandler
 from config_handler import ConfigHandler
 import platform
-
-
 
 # Function to extract base_urls from the already loaded config
 def get_source_urls(config):
@@ -23,12 +19,6 @@ def get_source_urls(config):
     except Exception as e:
         logging.error("Failed to get source URLs: %s", e)
         raise
-
-
-def custom_excepthook(exc_type, exc_value, exc_traceback):
-    if any(os.path.abspath(__file__) in frame.filename for frame in traceback.extract_tb(exc_traceback)):
-        sys.__excepthook__(exc_type, exc_value, exc_traceback)
-
 
 
 def check_and_create_base_directory(base_directory):
@@ -46,7 +36,7 @@ def check_and_create_base_directory(base_directory):
         raise
 
 
-def clean_filename(title, os_type):
+def clean_filename(title, os_type='Windows'):
     max_length = 255
     windows_restricted_chars = r'[<>:"/\\|?*]'  # Restricted characters for Windows
     linux_restricted_chars = r'[<>:"/\\|?*\']'  # Restricted characters for Linux
@@ -99,7 +89,7 @@ def save_article(article, source, base_archive_directory, os_type):
     try:
         publish_date = article.publish_date
         title = article.title
-        clean_title = clean_filename(title)
+        clean_title = clean_filename(title, os_type)
         year, month, day = extract_year_month_day(publish_date)
 
         if year is None:
@@ -190,7 +180,6 @@ class NewsCrawler:
             logging.error(f"Error extracting information: %e")
 
 if __name__ == "__main__":
-    # sys.excepthook = custom_excepthook
     #TODO - batch save files to cut down on write speeds
     #TODO - create rotating log files
     #TODO - add abiltiy to compress folders?

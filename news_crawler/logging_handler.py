@@ -1,48 +1,86 @@
 import logging
-import os
 from logging.handlers import RotatingFileHandler
-
-class ScriptLoggerFilter(logging.Filter):
-    def filter(self, record):
-        return record.pathname.startswith(os.path.dirname(os.path.abspath(__file__)))
+import warnings
+from pathlib import Path
+from typing import Dict
 
 class LoggingHandler:
     @staticmethod
-    def setup_logging(config):
-        log_level = config.get('logging', {}).get('level', 'DEBUG')
-        log_file = config.get('logging', {}).get('file', 'app.log')
-        log_max_size = config.get('logging', {}).get('max_size', 1024 * 1024 * 5)  # Default: 5MB
-        log_backup_count = config.get('logging', {}).get('backup_count', 0)  # Default: keep all files
-        file_log_level = config.get('logging', {}).get('file_level', log_level)
-        console_log_level = config.get('logging', {}).get('console_level', log_level)
+    def setup_logging(config: Dict):
+        log_config = config.get('logging', {})
+        global_level = log_config.get('global_level', 'DEBUG')
+        log_file = log_config.get('file', 'app.log')
+        log_max_size_mb = log_config.get('max_size_mb', 2)
+        log_backup_count = log_config.get('backup_count', 5000)
+        file_log_level = log_config.get('file_level', global_level)
+        console_log_level = log_config.get('console_level', global_level)
 
-        try:
-            log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', os.path.dirname(log_file))
-            if not os.path.exists(log_dir):
-                os.makedirs(log_dir)
+        log_max_size = log_max_size_mb * 1024 * 1024  # Convert MB to bytes
 
-            log_file_path = os.path.join(log_dir, os.path.basename(log_file))
-            root_logger = logging.getLogger()
-            root_logger.setLevel(getattr(logging, log_level.upper(), logging.DEBUG))  # Root logger level
+        log_file_path = Path(log_file).resolve()
+        log_file_path.parent.mkdir(parents=True, exist_ok=True)
 
-            formatter = logging.Formatter('%(asctime)s - %(levelname)s - [Line:%(lineno)s] - %(message)s')
+        root_logger = logging.getLogger()
+        root_logger.setLevel(getattr(logging, global_level.upper(), logging.DEBUG))
 
-            # Rotating file handler
-            file_handler = RotatingFileHandler(log_file_path, maxBytes=log_max_size, backupCount=log_backup_count)
-            file_handler.setLevel(getattr(logging, file_log_level.upper(), logging.DEBUG))
-            file_handler.setFormatter(formatter)
-            root_logger.addHandler(file_handler)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - [%(filename)s: Line %(lineno)d] - %(message)s'
+        )
 
-            # Stream handler
-            stream_handler = logging.StreamHandler()
-            stream_handler.setLevel(getattr(logging, console_log_level.upper(), logging.DEBUG))
-            stream_handler.setFormatter(formatter)
-            root_logger.addHandler(stream_handler)
+        file_handler = LoggingHandler._create_file_handler(
+            log_file_path, log_max_size, log_backup_count, file_log_level, formatter
+        )
+        stream_handler = LoggingHandler._create_stream_handler(console_log_level, formatter)
 
-            # Add the custom filter to both handlers
-            filter = ScriptLoggerFilter()
-            file_handler.addFilter(filter)
-            stream_handler.addFilter(filter)
+        root_logger.addHandler(file_handler)
+        root_logger.addHandler(stream_handler)
 
-        except Exception as e:
-            raise RuntimeError(f"Error setting up logging: {e}")
+        LoggingHandler._suppress_warnings()
+        LoggingHandler._redirect_warnings_to_logging(stream_handler)
+
+    @staticmethod
+    def _create_file_handler(log_file_path: Path, max_bytes: int, backup_count: int, level: str, formatter: logging.Formatter) -> RotatingFileHandler:
+        file_handler = RotatingFileHandler(log_file_path, maxBytes=max_bytes, backupCount=backup_count)
+        file_handler.setLevel(getattr(logging, level.upper(), logging.DEBUG))
+        file_handler.setFormatter(formatter)
+        file_handler.addFilter(LoggingHandler._script_logger_filter)
+        return file_handler
+
+    @staticmethod
+    def _create_stream_handler(level: str, formatter: logging.Formatter) -> logging.StreamHandler:
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(getattr(logging, level.upper(), logging.INFO))
+        stream_handler.setFormatter(formatter)
+        stream_handler.addFilter(LoggingHandler._script_logger_filter)
+        return stream_handler
+
+    @staticmethod
+    def _script_logger_filter(record: logging.LogRecord) -> bool:
+        current_directory = Path(__file__).parent.resolve()
+        return current_directory in Path(record.pathname).resolve().parents
+
+    @staticmethod
+    def _suppress_warnings():
+        warnings.simplefilter(action='ignore', category=FutureWarning)
+
+    @staticmethod
+    def _redirect_warnings_to_logging(handler: logging.Handler):
+        logging.captureWarnings(True)
+        warnings_logger = logging.getLogger('py.warnings')
+        warnings_logger.addHandler(handler)
+        warnings_logger.setLevel(logging.WARNING)
+
+# Example usage:
+if __name__ == "__main__":
+    config = {
+        'logging': {
+            'global_level': 'DEBUG',
+            'file': 'app.log',
+            'max_size_mb': 5,
+            'backup_count': 5,
+            'file_level': 'DEBUG',
+            'console_level': 'INFO'
+        }
+    }
+    LoggingHandler.setup_logging(config)
+    # Add any code that may generate FutureWarnings here to test the setup.
