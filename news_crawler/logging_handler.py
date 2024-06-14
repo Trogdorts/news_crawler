@@ -18,7 +18,8 @@ class LoggingHandler:
         log_max_size = log_max_size_mb * 1024 * 1024  # Convert MB to bytes
 
         # Set log file path two levels up
-        log_file_path = (Path.cwd() / ".." / "logs" / log_file).resolve()
+        script_dir = Path(__file__).resolve().parent
+        log_file_path = (script_dir / ".." / "logs" / log_file).resolve()
         log_file_path.parent.mkdir(parents=True, exist_ok=True)
 
         root_logger = logging.getLogger()
