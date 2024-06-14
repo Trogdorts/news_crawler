@@ -1,4 +1,3 @@
-logging
 newspaper4k
 unidecode
 PyYAML
