@@ -1,8 +1,8 @@
 logging:
   global_level: DEBUG
-  file_level: DEBUG
+  file_level: INFO
   console_level: INFO
-  file: logs/test.log
+  file: test.log
   max_size_mb: 2
   backup_count: 10000
 settings:
