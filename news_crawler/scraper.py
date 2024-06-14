@@ -9,6 +9,7 @@ from unidecode import unidecode
 from logging_handler import LoggingHandler
 from config_handler import ConfigHandler
 import platform
+import random
 
 # Function to extract base_urls from the already loaded config
 def get_source_urls(config):
@@ -104,7 +105,6 @@ def save_article(article, source, base_archive_directory, os_type):
             month = 0
 
         if day is not None:
-            logging.warning("Could not extract day from publish date")
             filename = f"{year:02}-{month:02}-{day:02} {clean_title}.json"
         else:
             filename = f"{year:02}-{month:02} {clean_title}.json"
@@ -210,6 +210,7 @@ if __name__ == "__main__":
         while True:
             logging.info("Starting a new cycle to fetch and process sources.")
             source_urls = get_source_urls(config)
+            random.shuffle(source_urls)
             logging.debug(f"Fetched {len(source_urls)} source URLs from configuration.")
             for i in range(0, len(source_urls), sources_per_batch):
                 batch_urls = source_urls[i:i+sources_per_batch]
