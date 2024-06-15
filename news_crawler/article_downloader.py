@@ -123,10 +123,13 @@ class ArticleDownloader:
             logging.error("No URLs to process.")
 
 if __name__ == "__main__":
+
+
+
     config = {
-        "urls_file_path": "urls.txt",  # Path to the file containing URLs
-        "base_archive_directory": "downloaded_articles",  # Base directory to save the downloaded articles
-        "source_name": "manual_source_name",  # Manually set source folder name
+        "urls_file_path": "../scripts/urls.txt",  # Path to the file containing URLs
+        "base_archive_directory": "/mnt/nas/data/archive/news",  # Base directory to save the downloaded articles
+        "source_name": "washingtonexaminer",  # Manually set source folder name
         "max_workers": 5  # Number of threads to use for downloading articles
     }
 
