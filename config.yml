@@ -7,748 +7,760 @@ logging:
   backup_count: 10000
 settings:
   base_archive_dir: /mnt/nas/data/archive/news
-  archive_index_file: 
+  archive_index_file: null
   start_date: 2024/05/01
-  end_date:
+  end_date: null
   run_once: false
   max_workers: 6
   sources_per_batch: 3
 news_sources:
-  foxnews:
-    base_url: https://www.foxnews.com
-    category: News
-  cnn:
-    base_url: https://www.cnn.com
-    category: News
-  ycombinator:
-    base_url: https://news.ycombinator.com
+  9to5mac:
+    base_url: https://9to5mac.com
     category: Technology
-  cnbc:
-    base_url: https://www.cnbc.com
-    category: Business
-  yahoo_finance:
-    base_url: https://finance.yahoo.com
-    category: Finance
-  thestreet:
-    base_url: https://www.thestreet.com
-    category: Finance
-  reuters:
-    base_url: https://www.reuters.com
-    category: News
-  fool:
-    base_url: https://www.fool.com
-    category: Finance
-  investopedia:
-    base_url: https://www.investopedia.com
-    category: Finance
-  nytimes:
-    base_url: https://www.nytimes.com
-    category: News
-  bbc:
-    base_url: https://www.bbc.com
-    category: News
-  guardian:
-    base_url: https://www.theguardian.com
-    category: News
-  aljazeera:
-    base_url: https://www.aljazeera.com
-    category: News
-  washington_post:
-    base_url: https://www.washingtonpost.com
-    category: News
-  wsj:
-    base_url: https://www.wsj.com
-    category: Business
-  bloomberg:
-    base_url: https://www.bloomberg.com
-    category: Business
-  npr:
-    base_url: https://www.npr.org
-    category: News
-  usatoday:
-    base_url: https://www.usatoday.com
-    category: News
-  forbes:
-    base_url: https://www.forbes.com
-    category: Business
-  financial_times:
-    base_url: https://www.ft.com
-    category: Business
   abc_news:
     base_url: https://abcnews.go.com
     category: News
-  cbs_news:
-    base_url: https://www.cbsnews.com
+  ad_age:
+    base_url: https://adage.com
+    category: Marketing
+  ad_week:
+    base_url: https://www.adweek.com
+    category: Marketing
+  aljazeera:
+    base_url: https://www.aljazeera.com
     category: News
-  nbc_news:
-    base_url: https://www.nbcnews.com
+  allure:
+    base_url: https://www.allure.com
+    category: Lifestyle
+  alternet:
+    base_url: https://www.alternet.org
     category: News
-  latimes:
-    base_url: https://www.latimes.com
-    category: News
-  chicago_tribune:
-    base_url: https://www.chicagotribune.com
-    category: News
-  boston_globe:
-    base_url: https://www.bostonglobe.com
-    category: News
-  politico:
-    base_url: https://www.politico.com
-    category: Politics
-  marketwatch:
-    base_url: https://www.marketwatch.com
+  american_banker:
+    base_url: https://www.americanbanker.com
     category: Finance
-  barrons:
-    base_url: https://www.barrons.com
-    category: Finance
-  seeking_alpha:
-    base_url: https://seekingalpha.com
-    category: Finance
-  business_insider:
-    base_url: https://www.businessinsider.com
-    category: Business
-  axios:
-    base_url: https://www.axios.com
-    category: News
-  the_hill:
-    base_url: https://www.thehill.com
-    category: Politics
-  propublica:
-    base_url: https://www.propublica.org
-    category: Investigative
-  vox:
-    base_url: https://www.vox.com
-    category: News
-  slate:
-    base_url: https://www.slate.com
-    category: News
-  newsweek:
-    base_url: https://www.newsweek.com
-    category: News
-  investing:
-    base_url: https://www.investing.com
-    category: Finance
-  morningstar:
-    base_url: https://www.morningstar.com
-    category: Finance
-  kiplinger:
-    base_url: https://www.kiplinger.com
-    category: Finance
-  techcrunch:
-    base_url: https://techcrunch.com
-    category: Technology
-  wired:
-    base_url: https://www.wired.com
-    category: Technology
-  the_verge:
-    base_url: https://www.theverge.com
-    category: Technology
-  ars_technica:
-    base_url: https://arstechnica.com
-    category: Technology
-  mashable:
-    base_url: https://mashable.com
-    category: Technology
-  cnet:
-    base_url: https://www.cnet.com
-    category: Technology
-  gizmodo:
-    base_url: https://gizmodo.com
-    category: Technology
-  zdnet:
-    base_url: https://www.zdnet.com
-    category: Technology
-  scientific_american:
-    base_url: https://www.scientificamerican.com
-    category: Science
-  nature:
-    base_url: https://www.nature.com
-    category: Science
-  new_scientist:
-    base_url: https://www.newscientist.com
-    category: Science
-  science_daily:
-    base_url: https://www.sciencedaily.com
-    category: Science
-  popular_science:
-    base_url: https://www.popsci.com
-    category: Science
-  live_science:
-    base_url: https://www.livescience.com
-    category: Science
-  space:
-    base_url: https://www.space.com
-    category: Science
-  nasa:
-    base_url: https://www.nasa.gov
-    category: Science
-  espn:
-    base_url: https://www.espn.com
-    category: Sports
-  sports_illustrated:
-    base_url: https://www.si.com
-    category: Sports
-  bleacher_report:
-    base_url: https://bleacherreport.com
-    category: Sports
-  cbs_sports:
-    base_url: https://www.cbssports.com
-    category: Sports
-  nbc_sports:
-    base_url: https://www.nbcsports.com
-    category: Sports
-  fox_sports:
-    base_url: https://www.foxsports.com
-    category: Sports
-  tmz:
-    base_url: https://www.tmz.com
-    category: Entertainment
-  e_online:
-    base_url: https://www.eonline.com
-    category: Entertainment
-  variety:
-    base_url: https://variety.com
-    category: Entertainment
-  hollywood_reporter:
-    base_url: https://www.hollywoodreporter.com
-    category: Entertainment
-  deadline:
-    base_url: https://deadline.com
-    category: Entertainment
-  webmd:
-    base_url: https://www.webmd.com
-    category: Health
-  healthline:
-    base_url: https://www.healthline.com
-    category: Health
-  medical_news_today:
-    base_url: https://www.medicalnewstoday.com
-    category: Health
-  mayo_clinic:
-    base_url: https://www.mayoclinic.org
-    category: Health
-  ny_daily_news:
-    base_url: https://www.nydailynews.com
-    category: News
-  sf_chronicle:
-    base_url: https://www.sfchronicle.com
-    category: News
-  houston_chronicle:
-    base_url: https://www.houstonchronicle.com
-    category: News
-  miami_herald:
-    base_url: https://www.miamiherald.com
-    category: News
-  pbs_news:
-    base_url: https://www.pbs.org/newshour
-    category: News
-  ap_news:
-    base_url: https://apnews.com
-    category: News
-  boston_herald:
-    base_url: https://www.bostonherald.com
-    category: News
-  newsmax:
-    base_url: https://www.newsmax.com
-    category: News
-  the_intercept:
-    base_url: https://theintercept.com
-    category: Investigative
-  christian_science_monitor:
-    base_url: https://www.csmonitor.com
-    category: News
-  the_american_conservative:
-    base_url: https://www.theamericanconservative.com
-    category: Politics
-  the_week:
-    base_url: https://theweek.com
-    category: News
-  roll_call:
-    base_url: https://www.rollcall.com
-    category: Politics
-  real_clear_politics:
-    base_url: https://www.realclearpolitics.com
-    category: Politics
-  townhall:
-    base_url: https://townhall.com
-    category: Politics
-  reason:
-    base_url: https://reason.com
-    category: Politics
-  mother_jones:
-    base_url: https://www.motherjones.com
+  american_prospect:
+    base_url: https://prospect.org
     category: Politics
   american_spectator:
     base_url: https://spectator.org
     category: Politics
-  the_diplomat:
-    base_url: https://thediplomat.com
-    category: International
-  brookings:
-    base_url: https://www.brookings.edu
-    category: Think Tank
-  the_atlantic:
-    base_url: https://www.theatlantic.com
-    category: News
-  american_prospect:
-    base_url: https://prospect.org
-    category: Politics
-  jacobin:
-    base_url: https://www.jacobinmag.com
-    category: Politics
-  progressive:
-    base_url: https://progressive.org
-    category: Politics
-  truthout:
-    base_url: https://truthout.org
-    category: Investigative
-  daily_beast:
-    base_url: https://www.thedailybeast.com
-    category: News
-  alternet:
-    base_url: https://www.alternet.org
-    category: News
-  the_blaze:
-    base_url: https://www.theblaze.com
-    category: News
-  oann:
-    base_url: https://www.oann.com
-    category: News
-  raw_story:
-    base_url: https://www.rawstory.com
-    category: News
-  the_federalist:
-    base_url: https://thefederalist.com
-    category: Politics
-  mediaite:
-    base_url: https://www.mediaite.com
-    category: Media
-  newsbusters:
-    base_url: https://www.newsbusters.org
-    category: Media
-  hot_air:
-    base_url: https://hotair.com
-    category: Politics
-  spectator_us:
-    base_url: https://spectator.us
-    category: Politics
-  free_beacon:
-    base_url: https://freebeacon.com
-    category: Politics
-  daily_caller:
-    base_url: https://dailycaller.com
-    category: Politics
-  washington_examiner:
-    base_url: https://www.washingtonexaminer.com
-    category: Politics
-  national_review:
-    base_url: https://www.nationalreview.com
-    category: Politics
-  breitbart:
-    base_url: https://www.breitbart.com
-    category: Politics
-  pj_media:
-    base_url: https://pjmedia.com
-    category: Politics
-  redstate:
-    base_url: https://redstate.com
-    category: Politics
-  powerline_blog:
-    base_url: https://www.powerlineblog.com
-    category: Politics
-  us_government:
-    base_url: https://www.usa.gov/news
-    category: Government
-  cdc:
-    base_url: https://www.cdc.gov
-    category: Government
-  fda:
-    base_url: https://www.fda.gov
-    category: Government
-  nih:
-    base_url: https://www.nih.gov/news-events
-    category: Government
-  white_house:
-    base_url: https://www.whitehouse.gov/news
-    category: Government
-  congress:
-    base_url: https://www.congress.gov
-    category: Government
-  supreme_court:
-    base_url: https://www.supremecourt.gov/news
-    category: Government
-  pentagon:
-    base_url: https://www.defense.gov/News
-    category: Government
-  homeland_security:
-    base_url: https://www.dhs.gov/news
-    category: Government
-  national_geographic:
-    base_url: https://www.nationalgeographic.com
-    category: Science
-  smithsonian_magazine:
-    base_url: https://www.smithsonianmag.com
-    category: Science
-  space_news:
-    base_url: https://spacenews.com
-    category: Science
-  new_yorker:
-    base_url: https://www.newyorker.com
-    category: News
-  harvard_business_review:
-    base_url: https://hbr.org
-    category: Business
-  the_information:
-    base_url: https://www.theinformation.com
-    category: Technology
-  digital_trends:
-    base_url: https://www.digitaltrends.com
-    category: Technology
-  techradar:
-    base_url: https://www.techradar.com
-    category: Technology
-  ad_week:
-    base_url: https://www.adweek.com
-    category: Marketing
-  fast_company:
-    base_url: https://www.fastcompany.com
-    category: Business
-  inc_magazine:
-    base_url: https://www.inc.com
-    category: Business
-  business_week:
-    base_url: https://www.bloomberg.com/businessweek
-    category: Business
-  fortune:
-    base_url: https://fortune.com
-    category: Business
-  silicon_valley_business_journal:
-    base_url: https://www.bizjournals.com/sanjose
-    category: Business
-  seattle_times:
-    base_url: https://www.seattletimes.com
-    category: News
-  dallas_morning_news:
-    base_url: https://www.dallasnews.com
-    category: News
-  philadelphia_inquirer:
-    base_url: https://www.inquirer.com
-    category: News
-  denver_post:
-    base_url: https://www.denverpost.com
-    category: News
-  tampa_bay_times:
-    base_url: https://www.tampabay.com
-    category: News
-  detroit_free_press:
-    base_url: https://www.freep.com
-    category: News
-  cleveland_plain_dealer:
-    base_url: https://www.cleveland.com
-    category: News
-  star_tribune:
-    base_url: https://www.startribune.com
-    category: News
-  kansas_city_star:
-    base_url: https://www.kansascity.com
-    category: News
-  oregonian:
-    base_url: https://www.oregonlive.com
-    category: News
-  san_diego_union_tribune:
-    base_url: https://www.sandiegouniontribune.com
-    category: News
-  milwaukee_journal_sentinel:
-    base_url: https://www.jsonline.com
-    category: News
-  st_louis_post_dispatch:
-    base_url: https://www.stltoday.com
-    category: News
-  minneapolis_star_tribune:
-    base_url: https://www.startribune.com
-    category: News
-  the_sun:
-    base_url: https://www.thesun.co.uk
-    category: News
-  daily_mail:
-    base_url: https://www.dailymail.co.uk
-    category: News
-  daily_mirror:
-    base_url: https://www.mirror.co.uk
-    category: News
-  new_york_post:
-    base_url: https://nypost.com
-    category: News
-  the_times:
-    base_url: https://www.thetimes.co.uk
-    category: News
-  economist:
-    base_url: https://www.economist.com
-    category: Business
-  new_republic:
-    base_url: https://newrepublic.com
-    category: News
-  time:
-    base_url: https://time.com
-    category: News
-  world_politics_review:
-    base_url: https://www.worldpoliticsreview.com
-    category: Politics
-  washington_times:
-    base_url: https://www.washingtontimes.com
-    category: News
-  los_angeles_magazine:
-    base_url: https://www.lamag.com
-    category: News
-  the_cut:
-    base_url: https://www.thecut.com
-    category: News
-  ny_mag:
-    base_url: https://nymag.com
-    category: News
-  glamour:
-    base_url: https://www.glamour.com
-    category: Lifestyle
-  vogue:
-    base_url: https://www.vogue.com
-    category: Lifestyle
-  vanity_fair:
-    base_url: https://www.vanityfair.com
-    category: Lifestyle
-  elle:
-    base_url: https://www.elle.com
-    category: Lifestyle
-  harpers_bazaar:
-    base_url: https://www.harpersbazaar.com
-    category: Lifestyle
-  marie_claire:
-    base_url: https://www.marieclaire.com
-    category: Lifestyle
-  good_housekeeping:
-    base_url: https://www.goodhousekeeping.com
-    category: Lifestyle
-  cosmopolitan:
-    base_url: https://www.cosmopolitan.com
-    category: Lifestyle
-  allure:
-    base_url: https://www.allure.com
-    category: Lifestyle
-  instyle:
-    base_url: https://www.instyle.com
-    category: Lifestyle
-  refinery29:
-    base_url: https://www.refinery29.com
-    category: Lifestyle
-  w_magazine:
-    base_url: https://www.wmagazine.com
-    category: Lifestyle
-  people:
-    base_url: https://people.com
-    category: Lifestyle
-  us_weekly:
-    base_url: https://www.usmagazine.com
-    category: Lifestyle
-  hollywood_life:
-    base_url: https://hollywoodlife.com
-    category: Lifestyle
-  billboard:
-    base_url: https://www.billboard.com
-    category: Entertainment
-  pitchfork:
-    base_url: https://pitchfork.com
-    category: Entertainment
-  rolling_stone:
-    base_url: https://www.rollingstone.com
-    category: Entertainment
-  mtv_news:
-    base_url: https://www.mtv.com/news
-    category: Entertainment
-  vice:
-    base_url: https://www.vice.com
-    category: News
-  buzzfeed:
-    base_url: https://www.buzzfeed.com
-    category: Entertainment
-  huffpost:
-    base_url: https://www.huffpost.com
-    category: News
-  salon:
-    base_url: https://www.salon.com
-    category: News
-  the_drum:
-    base_url: https://www.thedrum.com
-    category: Marketing
-  ad_age:
-    base_url: https://adage.com
-    category: Marketing
-  digiday:
-    base_url: https://www.digiday.com
-    category: Marketing
-  marketing_land:
-    base_url: https://marketingland.com
-    category: Marketing
-  search_engine_land:
-    base_url: https://searchengineland.com
-    category: Marketing
-  social_media_today:
-    base_url: https://www.socialmediatoday.com
-    category: Marketing
-  media_post:
-    base_url: https://www.mediapost.com
-    category: Marketing
-  tech_meme:
-    base_url: https://www.techmeme.com
-    category: Technology
-  9to5mac:
-    base_url: https://9to5mac.com
-    category: Technology
-  android_central:
-    base_url: https://www.androidcentral.com
-    category: Technology
-  mac_rumors:
-    base_url: https://www.macrumors.com
-    category: Technology
-  apple_insider:
-    base_url: https://appleinsider.com
+  anandtech:
+    base_url: https://www.anandtech.com
     category: Technology
   android_authority:
     base_url: https://www.androidauthority.com
     category: Technology
-  windows_central:
-    base_url: https://www.windowscentral.com
+  android_central:
+    base_url: https://www.androidcentral.com
     category: Technology
-  xda_developers:
-    base_url: https://www.xda-developers.com
+  android_police:
+    base_url: https://www.androidpolice.com
     category: Technology
-  extremetech:
-    base_url: https://www.extremetech.com
+  ap_news:
+    base_url: https://apnews.com
+    category: News
+  apple_insider:
+    base_url: https://appleinsider.com
     category: Technology
-  gizmag:
-    base_url: https://newatlas.com
+  ars_technica:
+    base_url: https://arstechnica.com
     category: Technology
-  tech_republic:
-    base_url: https://www.techrepublic.com
+  axios:
+    base_url: https://www.axios.com
+    category: News
+  bank_innovation:
+    base_url: https://bankinnovation.net
+    category: Finance
+  banking_tech:
+    base_url: https://www.bankingtech.com
+    category: Finance
+  barrons:
+    base_url: https://www.barrons.com
+    category: Finance
+  bbc:
+    base_url: https://www.bbc.com
+    category: News
+  bbc_news:
+    base_url: https://www.bbc.co.uk/
+    category: News
+  billboard:
+    base_url: https://www.billboard.com
+    category: Entertainment
+  bleacher_report:
+    base_url: https://bleacherreport.com
+    category: Sports
+  bloomberg:
+    base_url: https://www.bloomberg.com
+    category: Business
+  boston_globe:
+    base_url: https://www.bostonglobe.com
+    category: News
+  boston_herald:
+    base_url: https://www.bostonherald.com
+    category: News
+  breitbart:
+    base_url: https://www.breitbart.com
+    category: Politics
+  brookings:
+    base_url: https://www.brookings.edu
+    category: Think Tank
+  business_insider:
+    base_url: https://www.businessinsider.com
+    category: Business
+  business_week:
+    base_url: https://www.bloomberg.com/businessweek
+    category: Business
+  buzzfeed:
+    base_url: https://www.buzzfeed.com
+    category: Entertainment
+  cb_insights:
+    base_url: https://www.cbinsights.com
+    category: Finance
+  cbs_news:
+    base_url: https://www.cbsnews.com
+    category: News
+  cbs_sports:
+    base_url: https://www.cbssports.com
+    category: Sports
+  cdc:
+    base_url: https://www.cdc.gov
+    category: Government
+  chicago_tribune:
+    base_url: https://www.chicagotribune.com
+    category: News
+  christian_science_monitor:
+    base_url: https://www.csmonitor.com
+    category: News
+  cio:
+    base_url: https://www.cio.com
     category: Technology
-  information_week:
-    base_url: https://www.informationweek.com
+  cleveland_plain_dealer:
+    base_url: https://www.cleveland.com
+    category: News
+  cnbc:
+    base_url: https://www.cnbc.com
+    category: Business
+  cnet:
+    base_url: https://www.cnet.com
     category: Technology
-  dark_reading:
-    base_url: https://www.darkreading.com
-    category: Security
-  threatpost:
-    base_url: https://threatpost.com
-    category: Security
-  cyber_scoop:
-    base_url: https://www.cyberscoop.com
-    category: Security
-  sc_magazine:
-    base_url: https://www.scmagazine.com
-    category: Security
-  tech_target:
-    base_url: https://www.techtarget.com
-    category: Technology
+  cnn:
+    base_url: https://www.cnn.com
+    category: News
   computer_weekly:
     base_url: https://www.computerweekly.com
     category: Technology
   computer_world:
     base_url: https://www.computerworld.com
     category: Technology
-  network_world:
-    base_url: https://www.networkworld.com
-    category: Technology
-  cio:
-    base_url: https://www.cio.com
-    category: Technology
-  itworld:
-    base_url: https://www.itworld.com
-    category: Technology
-  pc_mag:
-    base_url: https://www.pcmag.com
-    category: Technology
-  tech_spot:
-    base_url: https://www.techspot.com
-    category: Technology
-  toms_hardware:
-    base_url: https://www.tomshardware.com
-    category: Technology
-  anandtech:
-    base_url: https://www.anandtech.com
-    category: Technology
-  the_register:
-    base_url: https://www.theregister.com
-    category: Technology
-  verge:
-    base_url: https://www.theverge.com
-    category: Technology
-  engadget:
-    base_url: https://www.engadget.com
-    category: Technology
-  slashdot:
-    base_url: https://slashdot.org
-    category: Technology
-  readwrite:
-    base_url: https://readwrite.com
-    category: Technology
-  gigaom:
-    base_url: https://gigaom.com
-    category: Technology
-  venturebeat:
-    base_url: https://venturebeat.com
-    category: Technology
-  android_police:
-    base_url: https://www.androidpolice.com
-    category: Technology
-  tech_insider:
-    base_url: https://www.techinsider.io
-    category: Technology
-  geek_wire:
-    base_url: https://www.geekwire.com
-    category: Technology
-  pymnts:
-    base_url: https://www.pymnts.com
-    category: Finance
-  fintech_future:
-    base_url: https://www.fintechfutures.com
-    category: Finance
-  fintech_news:
-    base_url: https://fintechnews.org
-    category: Finance
-  bank_innovation:
-    base_url: https://bankinnovation.net
-    category: Finance
-  the_paypers:
-    base_url: https://thepaypers.com
-    category: Finance
-  finextra:
-    base_url: https://finextra.com
-    category: Finance
-  american_banker:
-    base_url: https://www.americanbanker.com
-    category: Finance
-  banking_tech:
-    base_url: https://www.bankingtech.com
-    category: Finance
-  cb_insights:
-    base_url: https://www.cbinsights.com
-    category: Finance
+  congress:
+    base_url: https://www.congress.gov
+    category: Government
+  consumer_financial_protection_bureau:
+    base_url: https://www.consumerfinance.gov/about-us/newsroom
+    category: Government
+  cosmopolitan:
+    base_url: https://www.cosmopolitan.com
+    category: Lifestyle
   crowd_fund_insider:
     base_url: https://www.crowdfundinsider.com
     category: Finance
   crowd_funding_buzz:
     base_url: https://www.crowdfundingbuzz.it
     category: Finance
-  pe_hub:
-    base_url: https://www.pehub.com
-    category: Finance
-  sec_regulation:
-    base_url: https://www.sec.gov/news/press-releases
+  cyber_scoop:
+    base_url: https://www.cyberscoop.com
+    category: Security
+  daily_beast:
+    base_url: https://www.thedailybeast.com
+    category: News
+  daily_caller:
+    base_url: https://dailycaller.com
+    category: Politics
+  daily_express:
+    base_url: https://www.express.co.uk/
+    category: News
+  daily_mail:
+    base_url: https://www.dailymail.co.uk/
+    category: News
+  daily_mirror:
+    base_url: https://www.mirror.co.uk/
+    category: News
+  dallas_morning_news:
+    base_url: https://www.dallasnews.com
+    category: News
+  dark_reading:
+    base_url: https://www.darkreading.com
+    category: Security
+  deadline:
+    base_url: https://deadline.com
+    category: Entertainment
+  denver_post:
+    base_url: https://www.denverpost.com
+    category: News
+  detroit_free_press:
+    base_url: https://www.freep.com
+    category: News
+  digiday:
+    base_url: https://www.digiday.com
+    category: Marketing
+  digital_trends:
+    base_url: https://www.digitaltrends.com
+    category: Technology
+  e_online:
+    base_url: https://www.eonline.com
+    category: Entertainment
+  economist:
+    base_url: https://www.economist.com
+    category: Business
+  elle:
+    base_url: https://www.elle.com
+    category: Lifestyle
+  engadget:
+    base_url: https://www.engadget.com
+    category: Technology
+  espn:
+    base_url: https://www.espn.com
+    category: Sports
+  extremetech:
+    base_url: https://www.extremetech.com
+    category: Technology
+  fast_company:
+    base_url: https://www.fastcompany.com
+    category: Business
+  fda:
+    base_url: https://www.fda.gov
     category: Government
   federal_reserve:
     base_url: https://www.federalreserve.gov/newsevents.htm
     category: Government
-  consumer_financial_protection_bureau:
-    base_url: https://www.consumerfinance.gov/about-us/newsroom
-    category: Government
+  financial_times:
+    base_url: https://www.ft.com
+    category: Business
+  finextra:
+    base_url: https://finextra.com
+    category: Finance
   finra:
     base_url: https://www.finra.org/media-center/newsreleases
     category: Government
+  fintech_future:
+    base_url: https://www.fintechfutures.com
+    category: Finance
+  fintech_news:
+    base_url: https://fintechnews.org
+    category: Finance
+  fool:
+    base_url: https://www.fool.com
+    category: Finance
+  forbes:
+    base_url: https://www.forbes.com
+    category: Business
+  fortune:
+    base_url: https://fortune.com
+    category: Business
+  fox_sports:
+    base_url: https://www.foxsports.com
+    category: Sports
+  foxnews:
+    base_url: https://www.foxnews.com
+    category: News
+  free_beacon:
+    base_url: https://freebeacon.com
+    category: Politics
+  geek_wire:
+    base_url: https://www.geekwire.com
+    category: Technology
+  gigaom:
+    base_url: https://gigaom.com
+    category: Technology
+  gizmag:
+    base_url: https://newatlas.com
+    category: Technology
+  gizmodo:
+    base_url: https://gizmodo.com
+    category: Technology
+  glamour:
+    base_url: https://www.glamour.com
+    category: Lifestyle
+  good_housekeeping:
+    base_url: https://www.goodhousekeeping.com
+    category: Lifestyle
+  guardian:
+    base_url: https://www.theguardian.com/
+    category: News
+  harpers_bazaar:
+    base_url: https://www.harpersbazaar.com
+    category: Lifestyle
+  harvard_business_review:
+    base_url: https://hbr.org
+    category: Business
+  healthline:
+    base_url: https://www.healthline.com
+    category: Health
+  hollywood_life:
+    base_url: https://hollywoodlife.com
+    category: Lifestyle
+  hollywood_reporter:
+    base_url: https://www.hollywoodreporter.com
+    category: Entertainment
+  homeland_security:
+    base_url: https://www.dhs.gov/news
+    category: Government
+  hot_air:
+    base_url: https://hotair.com
+    category: Politics
+  houston_chronicle:
+    base_url: https://www.houstonchronicle.com
+    category: News
+  huffpost:
+    base_url: https://www.huffpost.com
+    category: News
+  inc_magazine:
+    base_url: https://www.inc.com
+    category: Business
+  information_week:
+    base_url: https://www.informationweek.com
+    category: Technology
+  instyle:
+    base_url: https://www.instyle.com
+    category: Lifestyle
+  investing:
+    base_url: https://www.investing.com
+    category: Finance
+  investopedia:
+    base_url: https://www.investopedia.com
+    category: Finance
+  itworld:
+    base_url: https://www.itworld.com
+    category: Technology
+  jacobin:
+    base_url: https://www.jacobinmag.com
+    category: Politics
+  kansas_city_star:
+    base_url: https://www.kansascity.com
+    category: News
+  kiplinger:
+    base_url: https://www.kiplinger.com
+    category: Finance
+  latimes:
+    base_url: https://www.latimes.com
+    category: News
+  live_science:
+    base_url: https://www.livescience.com
+    category: Science
+  los_angeles_magazine:
+    base_url: https://www.lamag.com
+    category: News
+  mac_rumors:
+    base_url: https://www.macrumors.com
+    category: Technology
+  marie_claire:
+    base_url: https://www.marieclaire.com
+    category: Lifestyle
+  marketing_land:
+    base_url: https://marketingland.com
+    category: Marketing
+  marketwatch:
+    base_url: https://www.marketwatch.com
+    category: Finance
+  mashable:
+    base_url: https://mashable.com
+    category: Technology
+  mayo_clinic:
+    base_url: https://www.mayoclinic.org
+    category: Health
+  media_post:
+    base_url: https://www.mediapost.com
+    category: Marketing
+  mediaite:
+    base_url: https://www.mediaite.com
+    category: Media
+  medical_news_today:
+    base_url: https://www.medicalnewstoday.com
+    category: Health
+  miami_herald:
+    base_url: https://www.miamiherald.com
+    category: News
+  milwaukee_journal_sentinel:
+    base_url: https://www.jsonline.com
+    category: News
+  minneapolis_star_tribune:
+    base_url: https://www.startribune.com
+    category: News
+  morningstar:
+    base_url: https://www.morningstar.com
+    category: Finance
+  mother_jones:
+    base_url: https://www.motherjones.com
+    category: Politics
+  mtv_news:
+    base_url: https://www.mtv.com/news
+    category: Entertainment
+  nasa:
+    base_url: https://www.nasa.gov
+    category: Science
+  national_geographic:
+    base_url: https://www.nationalgeographic.com
+    category: Science
+  national_review:
+    base_url: https://www.nationalreview.com
+    category: Politics
+  nature:
+    base_url: https://www.nature.com
+    category: Science
+  nbc_news:
+    base_url: https://www.nbcnews.com
+    category: News
+  nbc_sports:
+    base_url: https://www.nbcsports.com
+    category: Sports
+  network_world:
+    base_url: https://www.networkworld.com
+    category: Technology
+  new_republic:
+    base_url: https://newrepublic.com
+    category: News
+  new_scientist:
+    base_url: https://www.newscientist.com
+    category: Science
+  new_york_post:
+    base_url: https://nypost.com
+    category: News
+  new_yorker:
+    base_url: https://www.newyorker.com
+    category: News
+  newsbusters:
+    base_url: https://www.newsbusters.org
+    category: Media
+  newsmax:
+    base_url: https://www.newsmax.com
+    category: News
+  newsweek:
+    base_url: https://www.newsweek.com
+    category: News
+  nih:
+    base_url: https://www.nih.gov/news-events
+    category: Government
+  npr:
+    base_url: https://www.npr.org
+    category: News
+  ny_daily_news:
+    base_url: https://www.nydailynews.com
+    category: News
+  ny_mag:
+    base_url: https://nymag.com
+    category: News
+  nytimes:
+    base_url: https://www.nytimes.com
+    category: News
+  oann:
+    base_url: https://www.oann.com
+    category: News
+  oregonian:
+    base_url: https://www.oregonlive.com
+    category: News
+  pbs_news:
+    base_url: https://www.pbs.org/newshour
+    category: News
+  pc_mag:
+    base_url: https://www.pcmag.com
+    category: Technology
+  pe_hub:
+    base_url: https://www.pehub.com
+    category: Finance
+  pentagon:
+    base_url: https://www.defense.gov/News
+    category: Government
+  people:
+    base_url: https://people.com
+    category: Lifestyle
+  philadelphia_inquirer:
+    base_url: https://www.inquirer.com
+    category: News
+  pitchfork:
+    base_url: https://pitchfork.com
+    category: Entertainment
+  pj_media:
+    base_url: https://pjmedia.com
+    category: Politics
+  politico:
+    base_url: https://www.politico.com
+    category: Politics
+  popular_science:
+    base_url: https://www.popsci.com
+    category: Science
+  powerline_blog:
+    base_url: https://www.powerlineblog.com
+    category: Politics
+  progressive:
+    base_url: https://progressive.org
+    category: Politics
+  propublica:
+    base_url: https://www.propublica.org
+    category: Investigative
+  pymnts:
+    base_url: https://www.pymnts.com
+    category: Finance
+  raw_story:
+    base_url: https://www.rawstory.com
+    category: News
+  readwrite:
+    base_url: https://readwrite.com
+    category: Technology
+  real_clear_politics:
+    base_url: https://www.realclearpolitics.com
+    category: Politics
+  reason:
+    base_url: https://reason.com
+    category: Politics
+  redstate:
+    base_url: https://redstate.com
+    category: Politics
+  refinery29:
+    base_url: https://www.refinery29.com
+    category: Lifestyle
+  reuters:
+    base_url: https://www.reuters.com
+    category: News
+  roll_call:
+    base_url: https://www.rollcall.com
+    category: Politics
+  rolling_stone:
+    base_url: https://www.rollingstone.com
+    category: Entertainment
+  salon:
+    base_url: https://www.salon.com
+    category: News
+  san_diego_union_tribune:
+    base_url: https://www.sandiegouniontribune.com
+    category: News
+  sc_magazine:
+    base_url: https://www.scmagazine.com
+    category: Security
+  science_daily:
+    base_url: https://www.sciencedaily.com
+    category: Science
+  scientific_american:
+    base_url: https://www.scientificamerican.com
+    category: Science
+  search_engine_land:
+    base_url: https://searchengineland.com
+    category: Marketing
+  seattle_times:
+    base_url: https://www.seattletimes.com
+    category: News
+  sec_regulation:
+    base_url: https://www.sec.gov/news/press-releases
+    category: Government
+  seeking_alpha:
+    base_url: https://seekingalpha.com
+    category: Finance
+  sf_chronicle:
+    base_url: https://www.sfchronicle.com
+    category: News
+  silicon_valley_business_journal:
+    base_url: https://www.bizjournals.com/sanjose
+    category: Business
+  sky_news:
+    base_url: https://www.skynews.com/
+    category: News
+  slashdot:
+    base_url: https://slashdot.org
+    category: Technology
+  slate:
+    base_url: https://www.slate.com
+    category: News
+  smithsonian_magazine:
+    base_url: https://www.smithsonianmag.com
+    category: Science
+  social_media_today:
+    base_url: https://www.socialmediatoday.com
+    category: Marketing
+  space:
+    base_url: https://www.space.com
+    category: Science
+  space_news:
+    base_url: https://spacenews.com
+    category: Science
+  spectator_us:
+    base_url: https://spectator.us
+    category: Politics
+  sports_illustrated:
+    base_url: https://www.si.com
+    category: Sports
+  st_louis_post_dispatch:
+    base_url: https://www.stltoday.com
+    category: News
+  star_tribune:
+    base_url: https://www.startribune.com
+    category: News
+  supreme_court:
+    base_url: https://www.supremecourt.gov/news
+    category: Government
+  tampa_bay_times:
+    base_url: https://www.tampabay.com
+    category: News
+  tech_insider:
+    base_url: https://www.techinsider.io
+    category: Technology
+  tech_meme:
+    base_url: https://www.techmeme.com
+    category: Technology
+  tech_republic:
+    base_url: https://www.techrepublic.com
+    category: Technology
+  tech_spot:
+    base_url: https://www.techspot.com
+    category: Technology
+  tech_target:
+    base_url: https://www.techtarget.com
+    category: Technology
+  techcrunch:
+    base_url: https://techcrunch.com
+    category: Technology
+  techradar:
+    base_url: https://www.techradar.com
+    category: Technology
+  telegraph:
+    base_url: https://www.telegraph.co.uk/
+    category: News
+  the_american_conservative:
+    base_url: https://www.theamericanconservative.com
+    category: Politics
+  the_atlantic:
+    base_url: https://www.theatlantic.com
+    category: News
+  the_blaze:
+    base_url: https://www.theblaze.com
+    category: News
+  the_cut:
+    base_url: https://www.thecut.com
+    category: News
+  the_diplomat:
+    base_url: https://thediplomat.com
+    category: International
+  the_drum:
+    base_url: https://www.thedrum.com
+    category: Marketing
+  the_federalist:
+    base_url: https://thefederalist.com
+    category: Politics
+  the_hill:
+    base_url: https://www.thehill.com
+    category: Politics
+  the_information:
+    base_url: https://www.theinformation.com
+    category: Technology
+  the_intercept:
+    base_url: https://theintercept.com
+    category: Investigative
+  the_paypers:
+    base_url: https://thepaypers.com
+    category: Finance
+  the_register:
+    base_url: https://www.theregister.com
+    category: Technology
+  the_sun:
+    base_url: https://www.thesun.co.uk/
+    category: News
+  the_times:
+    base_url: https://www.thetimes.co.uk/
+    category: News
+  the_verge:
+    base_url: https://www.theverge.com
+    category: Technology
+  the_week:
+    base_url: https://theweek.com
+    category: News
+  thestreet:
+    base_url: https://www.thestreet.com
+    category: Finance
+  threatpost:
+    base_url: https://threatpost.com
+    category: Security
+  time:
+    base_url: https://time.com
+    category: News
+  tmz:
+    base_url: https://www.tmz.com
+    category: Entertainment
+  toms_hardware:
+    base_url: https://www.tomshardware.com
+    category: Technology
+  townhall:
+    base_url: https://townhall.com
+    category: Politics
+  truthout:
+    base_url: https://truthout.org
+    category: Investigative
+  us_government:
+    base_url: https://www.usa.gov/news
+    category: Government
+  us_weekly:
+    base_url: https://www.usmagazine.com
+    category: Lifestyle
+  usatoday:
+    base_url: https://www.usatoday.com
+    category: News
+  vanity_fair:
+    base_url: https://www.vanityfair.com
+    category: Lifestyle
+  variety:
+    base_url: https://variety.com
+    category: Entertainment
+  venturebeat:
+    base_url: https://venturebeat.com
+    category: Technology
+  verge:
+    base_url: https://www.theverge.com
+    category: Technology
+  vice:
+    base_url: https://www.vice.com
+    category: News
+  vogue:
+    base_url: https://www.vogue.com
+    category: Lifestyle
+  vox:
+    base_url: https://www.vox.com
+    category: News
+  w_magazine:
+    base_url: https://www.wmagazine.com
+    category: Lifestyle
+  washington_examiner:
+    base_url: https://www.washingtonexaminer.com
+    category: Politics
+  washington_post:
+    base_url: https://www.washingtonpost.com
+    category: News
+  washington_times:
+    base_url: https://www.washingtontimes.com
+    category: News
+  webmd:
+    base_url: https://www.webmd.com
+    category: Health
+  white_house:
+    base_url: https://www.whitehouse.gov/news
+    category: Government
+  windows_central:
+    base_url: https://www.windowscentral.com
+    category: Technology
+  wired:
+    base_url: https://www.wired.com
+    category: Technology
+  world_politics_review:
+    base_url: https://www.worldpoliticsreview.com
+    category: Politics
+  wsj:
+    base_url: https://www.wsj.com
+    category: Business
+  xda_developers:
+    base_url: https://www.xda-developers.com
+    category: Technology
+  yahoo_finance:
+    base_url: https://finance.yahoo.com
+    category: Finance
+  ycombinator:
+    base_url: https://news.ycombinator.com
+    category: Technology
+  zdnet:
+    base_url: https://www.zdnet.com
+    category: Technology
