@@ -455,6 +455,9 @@ news_sources:
   oann:
     base_url: https://www.oann.com
     category: News
+  opensecrets:
+    base_url: https://www.opensecrets.org/news
+    category: News
   oregonian:
     base_url: https://www.oregonlive.com
     category: News
