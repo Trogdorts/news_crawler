@@ -1,4 +1,6 @@
 import logging
+import sys
+from pathlib import Path
 from newspaper import Source, utils
 from newspaper.mthreading import fetch_news
 import concurrent.futures
@@ -11,7 +13,6 @@ import random
 import yaml
 from datetime import datetime, timedelta
 
-# Function to extract base_urls from the already loaded config
 def get_source_urls(config):
     try:
         news_sources = config.get('news_sources', {})
@@ -88,10 +89,7 @@ class NewsCrawler:
         if url not in failure_log:
             failure_log[url] = []
         failure_log[url].append(now)
-
-        # Remove old failures outside of the time period
         failure_log[url] = [timestamp for timestamp in failure_log[url] if timestamp > now - failure_time_window]
-
         if len(failure_log[url]) > failed_source_threshold:
             self.mark_source_as_failed(url)
             self.remove_source(url)
@@ -101,12 +99,10 @@ class NewsCrawler:
         config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
-
         for source_name, source in config['news_sources'].items():
             if source['base_url'] == url:
                 source['failed'] = True
                 break
-
         with open(config_path, 'w') as file:
             yaml.dump(config, file)
 
@@ -116,8 +112,14 @@ class NewsCrawler:
 
 if __name__ == "__main__":
     try:
-        config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
-        config = ConfigHandler.load_config(config_path)
+        config_path = Path(__file__).resolve().parent.parent / 'config.yml'
+        handler = ConfigHandler(config_path)
+        config = handler.load_config()  # Use the instance method
+
+        if config is None:
+            logging.critical("Configuration is None after loading. Exiting.")
+            sys.exit(1)
+
         LoggingHandler.setup_logging(config)
 
         base_archive_directory = check_and_create_base_directory(config['settings']['base_archive_dir'])
