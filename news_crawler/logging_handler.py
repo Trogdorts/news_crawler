@@ -34,6 +34,10 @@ class LoggingHandler:
         )
         stream_handler = LoggingHandler._create_stream_handler(console_log_level, formatter)
 
+        # Clear existing handlers
+        if root_logger.hasHandlers():
+            root_logger.handlers.clear()
+
         root_logger.addHandler(file_handler)
         root_logger.addHandler(stream_handler)
 
