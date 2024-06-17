@@ -1,20 +1,20 @@
 logging:
-  global_level: DEBUG
-  file_level: DEBUG
+  backup_count: 10000
   console_level: INFO
   file: scraper.log
+  file_level: DEBUG
+  global_level: DEBUG
   max_size_mb: 2
-  backup_count: 10000
 settings:
-  base_archive_dir: /mnt/nas/data/archive/news
   archive_index_file: null
-  start_date: 2024/05/01
+  base_archive_dir: /mnt/nas/data/archive/news
   end_date: null
-  run_once: false
-  max_workers: 6
-  sources_per_batch: 3
   failed_source_threshold: 5
   failure_time_window_hours: 24
+  max_workers: 6
+  run_once: false
+  sources_per_batch: 3
+  start_date: 2024-05-01
 news_sources:
   9to5mac:
     base_url: https://9to5mac.com
@@ -31,6 +31,7 @@ news_sources:
   aljazeera:
     base_url: https://www.aljazeera.com
     category: News
+    failed: true
   allure:
     base_url: https://www.allure.com
     category: Lifestyle
@@ -142,9 +143,11 @@ news_sources:
   cnbc:
     base_url: https://www.cnbc.com
     category: Business
+    failed: true
   cnet:
     base_url: https://www.cnet.com
     category: Technology
+    failed: true
   cnn:
     base_url: https://www.cnn.com
     category: News
@@ -187,6 +190,7 @@ news_sources:
   daily_mirror:
     base_url: https://www.mirror.co.uk/
     category: News
+    failed: true
   dallas_morning_news:
     base_url: https://www.dallasnews.com
     category: News
@@ -298,6 +302,7 @@ news_sources:
   healthline:
     base_url: https://www.healthline.com
     category: Health
+    failed: true
   hollywood_life:
     base_url: https://hollywoodlife.com
     category: Lifestyle
@@ -502,12 +507,14 @@ news_sources:
   propublica:
     base_url: https://www.propublica.org
     category: Investigative
+    failed: true
   pymnts:
     base_url: https://www.pymnts.com
     category: Finance
   raw_story:
     base_url: https://www.rawstory.com
     category: News
+    failed: true
   readwrite:
     base_url: https://readwrite.com
     category: Technology
@@ -616,6 +623,7 @@ news_sources:
   tech_spot:
     base_url: https://www.techspot.com
     category: Technology
+    failed: true
   tech_target:
     base_url: https://www.techtarget.com
     category: Technology
@@ -667,6 +675,7 @@ news_sources:
   the_sun:
     base_url: https://www.thesun.co.uk/
     category: News
+    failed: true
   the_times:
     base_url: https://www.thetimes.co.uk/
     category: News
@@ -688,6 +697,7 @@ news_sources:
   tmz:
     base_url: https://www.tmz.com
     category: Entertainment
+    failed: true
   toms_hardware:
     base_url: https://www.tomshardware.com
     category: Technology
@@ -715,6 +725,7 @@ news_sources:
   venturebeat:
     base_url: https://venturebeat.com
     category: Technology
+    failed: true
   verge:
     base_url: https://www.theverge.com
     category: Technology
