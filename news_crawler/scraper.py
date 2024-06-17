@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 def get_source_urls(config):
     try:
         news_sources = config.get('news_sources', {})
-        base_urls = [source['base_url'] for source in news_sources.values() if not source.get('commented_out', False)]
+        base_urls = [source['base_url'] for source in news_sources.values() if not source.get('failed', False)]
         return base_urls
     except Exception as e:
         logging.error(f"Failed to get source URLs: {e}")
@@ -93,18 +93,18 @@ class NewsCrawler:
         failure_log[url] = [timestamp for timestamp in failure_log[url] if timestamp > now - failure_time_window]
 
         if len(failure_log[url]) > failed_source_threshold:
-            self.comment_out_source(url)
+            self.mark_source_as_failed(url)
             self.remove_source(url)
 
-    def comment_out_source(self, url):
-        logging.warning(f"Commenting out source {url} due to repeated failures.")
+    def mark_source_as_failed(self, url):
+        logging.warning(f"Marking source {url} as failed due to repeated failures.")
         config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
 
         for source_name, source in config['news_sources'].items():
             if source['base_url'] == url:
-                source['commented_out'] = True
+                source['failed'] = True
                 break
 
         with open(config_path, 'w') as file:
