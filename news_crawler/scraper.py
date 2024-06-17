@@ -8,12 +8,14 @@ from config_handler import ConfigHandler
 from directory_operations import save_article, check_and_create_base_directory
 import platform
 import random
+import yaml
+from datetime import datetime, timedelta
 
 # Function to extract base_urls from the already loaded config
 def get_source_urls(config):
     try:
         news_sources = config.get('news_sources', {})
-        base_urls = [source['base_url'] for source in news_sources.values()]
+        base_urls = [source['base_url'] for source in news_sources.values() if not source.get('commented_out', False)]
         return base_urls
     except Exception as e:
         logging.error(f"Failed to get source URLs: {e}")
@@ -39,6 +41,7 @@ class NewsCrawler:
             logging.debug(f"Built source: {source}")
         except Exception as e:
             logging.error(f"Error building source: {e}")
+            self.record_failure(source.url)
 
     def build_sources(self, max_workers):
         try:
@@ -76,19 +79,42 @@ class NewsCrawler:
                         save_article(article, source, base_archive_directory, os_type)
                     except Exception as e:
                         logging.error(f"Error processing article: {e}")
+                        self.record_failure(source.url)
         except Exception as e:
             logging.error(f"Error extracting information: {e}")
 
-if __name__ == "__main__":
-    #TODO - batch save files to cut down on write speeds
-    #TODO - create rotating log files
-    #TODO - add ability to compress folders
-    #TODO - add ability to scrape wayback
-    #TODO - add in the ability to send web updates to cron scheduler
-    #TODO - add a function that will generate an empty config file
-    #TODO - add a language filter
-    #TODO - add the ability to pass in a different config file
+    def record_failure(self, url):
+        now = datetime.now()
+        if url not in failure_log:
+            failure_log[url] = []
+        failure_log[url].append(now)
 
+        # Remove old failures outside of the time period
+        failure_log[url] = [timestamp for timestamp in failure_log[url] if timestamp > now - failure_time_window]
+
+        if len(failure_log[url]) > failed_source_threshold:
+            self.comment_out_source(url)
+            self.remove_source(url)
+
+    def comment_out_source(self, url):
+        logging.warning(f"Commenting out source {url} due to repeated failures.")
+        config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
+        with open(config_path, 'r') as file:
+            config = yaml.safe_load(file)
+
+        for source_name, source in config['news_sources'].items():
+            if source['base_url'] == url:
+                source['commented_out'] = True
+                break
+
+        with open(config_path, 'w') as file:
+            yaml.dump(config, file)
+
+    def remove_source(self, url):
+        logging.info(f"Removing source {url} from the active sources list.")
+        self.sources = [source for source in self.sources if source.url != url]
+
+if __name__ == "__main__":
     try:
         config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config.yml')
         config = ConfigHandler.load_config(config_path)
@@ -97,8 +123,11 @@ if __name__ == "__main__":
         base_archive_directory = check_and_create_base_directory(config['settings']['base_archive_dir'])
         utils.cache_disk.enabled = False
         run_once = config['settings']['run_once']
-        max_workers = config['settings'].get('max_workers', 5)  # Default to 5 workers if not specified
-        sources_per_batch = config['settings'].get('sources_per_batch', 2)  # Default to 2 sources per batch if not specified
+        max_workers = config['settings'].get('max_workers', 5)
+        sources_per_batch = config['settings'].get('sources_per_batch', 2)
+        failed_source_threshold = config['settings'].get('failed_source_threshold', 5)
+        failure_time_window = timedelta(hours=config['settings'].get('failure_time_window_hours', 24))
+        failure_log = {}
         first_run = True
         os_type = platform.system()
 

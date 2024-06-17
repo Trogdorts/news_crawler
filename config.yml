@@ -13,6 +13,8 @@ settings:
   run_once: false
   max_workers: 6
   sources_per_batch: 3
+  failed_source_threshold: 5
+  failure_time_window_hours: 24
 news_sources:
   9to5mac:
     base_url: https://9to5mac.com
