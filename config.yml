@@ -15,6 +15,7 @@ settings:
   run_once: false
   sources_per_batch: 3
   start_date: 2024-05-01
+  language: en
 news_sources:
   9to5mac:
     base_url: https://9to5mac.com
