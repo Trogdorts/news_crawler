@@ -44,7 +44,7 @@ class NewsCrawler:
             source.build()
             logging.debug(f"Built source: {source}")
         except Exception as e:
-            logging.error(f"Error building source: {e}")
+            logging.error(f"Error building source: {e}", exc_info=True)
             self.record_failure(source.url)
 
     def build_sources(self, max_workers):
@@ -57,10 +57,10 @@ class NewsCrawler:
                     try:
                         future.result()
                     except Exception as e:
-                        logging.error(f"Source {source.url} generated an exception: {e}")
+                        logging.error(f"Source {source.url} generated an exception: {e}", exc_info=True)
             logging.info("Sources built successfully")
         except Exception as e:
-            logging.error(f"Error building sources: {e}")
+            logging.error(f"Error building sources: {e}", exc_info=True)
 
     def crawl_articles(self):
         try:
@@ -68,7 +68,7 @@ class NewsCrawler:
             self.articles = fetch_news(self.sources, threads=4)
             logging.info("Articles crawled successfully.")
         except Exception as e:
-            logging.error(f"Error crawling articles: {e}")
+            logging.error(f"Error crawling articles: {e}", exc_info=True)
 
     def extract_information(self):
         try:
@@ -82,10 +82,10 @@ class NewsCrawler:
                         article.nlp()
                         save_article(article, source, self.base_archive_directory, self.os_type)
                     except Exception as e:
-                        logging.error(f"Error processing article: {e}")
+                        logging.error(f"Error processing article: {e}", exc_info=True)
                         self.record_failure(source.url)
         except Exception as e:
-            logging.error(f"Error extracting information: {e}")
+            logging.error(f"Error extracting information: {e}", exc_info=True)
 
     def record_failure(self, url):
         now = datetime.now()
@@ -120,7 +120,7 @@ class NewsCrawler:
             base_urls = [source['base_url'] for source in news_sources.values() if not source.get('failed', False)]
             return base_urls
         except Exception as e:
-            logging.error(f"Failed to get source URLs: {e}")
+            logging.error(f"Failed to get source URLs: {e}", exc_info=True)
             raise
 
     def run(self, run_once):
@@ -173,7 +173,7 @@ def create_news_crawler():
         return NewsCrawler(config, base_archive_directory, language, max_workers, sources_per_batch, failed_source_threshold, failure_time_window_hours), run_once
 
     except Exception as e:
-        logging.critical(f"Unexpected error in create_news_crawler: {e}")
+        logging.critical(f"Unexpected error in create_news_crawler: {e}", exc_info=True)
         sys.exit(1)
 
 if __name__ == "__main__":
@@ -184,4 +184,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logging.info("Script interrupted by user.")
     except Exception as e:
-        logging.critical(f"Unexpected error in main execution: {e}")
+        logging.critical(f"Unexpected error in main execution: {e}", exc_info=True)
