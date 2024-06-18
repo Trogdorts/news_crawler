@@ -32,7 +32,7 @@ news_sources:
   aljazeera:
     base_url: https://www.aljazeera.com
     category: News
-    failed: true
+    failed: false
   allure:
     base_url: https://www.allure.com
     category: Lifestyle
@@ -144,11 +144,11 @@ news_sources:
   cnbc:
     base_url: https://www.cnbc.com
     category: Business
-    failed: true
+    failed: false
   cnet:
     base_url: https://www.cnet.com
     category: Technology
-    failed: true
+    failed: false
   cnn:
     base_url: https://www.cnn.com
     category: News
@@ -191,7 +191,7 @@ news_sources:
   daily_mirror:
     base_url: https://www.mirror.co.uk/
     category: News
-    failed: true
+    failed: false
   dallas_morning_news:
     base_url: https://www.dallasnews.com
     category: News
@@ -303,7 +303,7 @@ news_sources:
   healthline:
     base_url: https://www.healthline.com
     category: Health
-    failed: true
+    failed: false
   hollywood_life:
     base_url: https://hollywoodlife.com
     category: Lifestyle
@@ -508,14 +508,14 @@ news_sources:
   propublica:
     base_url: https://www.propublica.org
     category: Investigative
-    failed: true
+    failed: false
   pymnts:
     base_url: https://www.pymnts.com
     category: Finance
   raw_story:
     base_url: https://www.rawstory.com
     category: News
-    failed: true
+    failed: false
   readwrite:
     base_url: https://readwrite.com
     category: Technology
@@ -624,7 +624,7 @@ news_sources:
   tech_spot:
     base_url: https://www.techspot.com
     category: Technology
-    failed: true
+    failed: false
   tech_target:
     base_url: https://www.techtarget.com
     category: Technology
@@ -676,7 +676,7 @@ news_sources:
   the_sun:
     base_url: https://www.thesun.co.uk/
     category: News
-    failed: true
+    failed: false
   the_times:
     base_url: https://www.thetimes.co.uk/
     category: News
@@ -698,7 +698,7 @@ news_sources:
   tmz:
     base_url: https://www.tmz.com
     category: Entertainment
-    failed: true
+    failed: false
   toms_hardware:
     base_url: https://www.tomshardware.com
     category: Technology
@@ -726,7 +726,7 @@ news_sources:
   venturebeat:
     base_url: https://venturebeat.com
     category: Technology
-    failed: true
+    failed: false
   verge:
     base_url: https://www.theverge.com
     category: Technology
