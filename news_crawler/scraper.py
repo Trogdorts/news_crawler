@@ -123,31 +123,33 @@ class NewsCrawler:
             logging.error(f"Failed to get source URLs: {e}", exc_info=True)
             raise
 
+    def run_once_cycle(self):
+        source_urls = self.get_source_urls()
+        random.shuffle(source_urls)
+        logging.debug(f"Fetched {len(source_urls)} source URLs from configuration.")
+        for i in range(0, len(source_urls), self.sources_per_batch):
+            batch_urls = source_urls[i:i+self.sources_per_batch]
+            logging.info(f"Processing batch URLs: {batch_urls}")
+            self.sources = [Source(url, language=self.language) for url in batch_urls]
+            for source in self.sources:
+                if self.first_run:
+                    logging.info(f"Cleaning memo_cache for {source.url}.")
+                    source.clean_memo_cache()
+            self.set_run(self.first_run)
+            self.build_sources(self.max_workers)
+            self.crawl_articles()
+            self.extract_information()
+        logging.info(f"Completed cycle {self.cycle}. Preparing for the next cycle.")
+        self.cycle += 1
+        self.first_run = False
+
     def run(self, run_once):
         while True:
             logging.info("Starting a new cycle to fetch and process sources.")
-            source_urls = self.get_source_urls()
-            random.shuffle(source_urls)
-            logging.debug(f"Fetched {len(source_urls)} source URLs from configuration.")
-            for i in range(0, len(source_urls), self.sources_per_batch):
-                batch_urls = source_urls[i:i+self.sources_per_batch]
-                logging.info(f"Processing batch URLs: {batch_urls}")
-                self.sources = [Source(url, language=self.language) for url in batch_urls]
-                for source in self.sources:
-                    if self.first_run:
-                        logging.info(f"Cleaning memo_cache for {source.url}.")
-                        source.clean_memo_cache()
-                self.set_run(self.first_run)
-                self.build_sources(self.max_workers)
-                self.crawl_articles()
-                self.extract_information()
+            self.run_once_cycle()
             if run_once:
                 logging.info("Exiting program after running once.")
                 break
-            else:
-                logging.info(f"Completed cycle {self.cycle}. Preparing for the next cycle.")
-                self.cycle += 1
-                self.first_run = False
 
 def create_news_crawler():
     try:
