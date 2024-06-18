@@ -149,7 +149,7 @@ class NewsCrawler:
                 self.cycle += 1
                 self.first_run = False
 
-if __name__ == "__main__":
+def create_news_crawler():
     try:
         config_path = Path(__file__).resolve().parent.parent / 'config.yml'
         handler = ConfigHandler(config_path)
@@ -170,7 +170,15 @@ if __name__ == "__main__":
         failure_time_window_hours = config['settings'].get('failure_time_window_hours', 24)
         language = config['settings'].get('language', 'en')
 
-        crawler = NewsCrawler(config, base_archive_directory, language, max_workers, sources_per_batch, failed_source_threshold, failure_time_window_hours)
+        return NewsCrawler(config, base_archive_directory, language, max_workers, sources_per_batch, failed_source_threshold, failure_time_window_hours), run_once
+
+    except Exception as e:
+        logging.critical(f"Unexpected error in create_news_crawler: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    try:
+        crawler, run_once = create_news_crawler()
         crawler.run(run_once)
 
     except KeyboardInterrupt:
