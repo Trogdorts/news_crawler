@@ -23,18 +23,27 @@ def get_source_urls(config):
         raise
 
 class NewsCrawler:
-    def __init__(self, source_urls, config=None):
-        try:
-            logging.info(f"Initializing NewsCrawler with sources: {source_urls}")
-            self.sources = []
-            for url in source_urls:
-                source = Source(url, config=config)
-                if first_run:
-                    source.clean_memo_cache()
-                self.sources.append(source)
-            self.articles = []
-        except Exception as e:
-            logging.critical(f"Error initializing NewsCrawler: {e}")
+    def __init__(self, source_urls=None, language='en'):
+        logging.info(f"Initializing NewsCrawler with sources: {source_urls}")
+        self.language = language
+        self.first_run = True
+        self.sources = []
+        for url in source_urls:
+            source = Source(url, language=self.language)
+            if self.first_run:
+                logging.info(f"Cleaning memo_cache for {url}.")
+                source.clean_memo_cache()
+            self.sources.append(source)
+        self.articles = []
+
+    def set_run(self, run=None):
+        if run is True:
+            self.first_run = True
+        elif run is False:
+            self.first_run = False
+        else:
+            logging.error(f"Invalid run: {run}")
+            sys.exit(1)
 
     def build_source(self, source):
         try:
@@ -129,6 +138,10 @@ if __name__ == "__main__":
         sources_per_batch = config['settings'].get('sources_per_batch', 2)
         failed_source_threshold = config['settings'].get('failed_source_threshold', 5)
         failure_time_window = timedelta(hours=config['settings'].get('failure_time_window_hours', 24))
+
+        #TODO validate language input
+        language = config['settings'].get('language', 'en')
+
         failure_log = {}
         first_run = True
         os_type = platform.system()
@@ -141,7 +154,8 @@ if __name__ == "__main__":
             for i in range(0, len(source_urls), sources_per_batch):
                 batch_urls = source_urls[i:i+sources_per_batch]
                 logging.info(f"Processing batch URLs: {batch_urls}")
-                crawler = NewsCrawler(batch_urls)
+                crawler = NewsCrawler(source_urls=batch_urls, language=language)
+                crawler.set_run(first_run)
                 crawler.build_sources(max_workers)
                 crawler.crawl_articles()
                 crawler.extract_information(os_type=os_type)
