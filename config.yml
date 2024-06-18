@@ -138,6 +138,9 @@ news_sources:
   cio:
     base_url: https://www.cio.com
     category: Technology
+  city_am:
+    base_url: https://www.cityam.com/
+    category: News
   cleveland_plain_dealer:
     base_url: https://www.cleveland.com
     category: News
@@ -192,6 +195,12 @@ news_sources:
     base_url: https://www.mirror.co.uk/
     category: News
     failed: false
+  daily_record:
+    base_url: https://www.dailyrecord.co.uk/
+    category: News
+  daily_star:
+    base_url: https://www.dailystar.co.uk/
+    category: News
   dallas_morning_news:
     base_url: https://www.dallasnews.com
     category: News
@@ -304,6 +313,9 @@ news_sources:
     base_url: https://www.healthline.com
     category: Health
     failed: false
+  herald_scotland:
+    base_url: https://www.heraldscotland.com/
+    category: News
   hollywood_life:
     base_url: https://hollywoodlife.com
     category: Lifestyle
@@ -321,6 +333,9 @@ news_sources:
     category: News
   huffpost:
     base_url: https://www.huffpost.com
+    category: News
+  i_newspaper:
+    base_url: https://inews.co.uk/
     category: News
   inc_magazine:
     base_url: https://www.inc.com
@@ -361,6 +376,9 @@ news_sources:
   mac_rumors:
     base_url: https://www.macrumors.com
     category: Technology
+  mail_on_sunday:
+    base_url: https://www.mailonsunday.co.uk/
+    category: News
   marie_claire:
     base_url: https://www.marieclaire.com
     category: Lifestyle
@@ -385,6 +403,9 @@ news_sources:
   medical_news_today:
     base_url: https://www.medicalnewstoday.com
     category: Health
+  metro:
+    base_url: https://www.metro.co.uk/
+    category: News
   miami_herald:
     base_url: https://www.miamiherald.com
     category: News
@@ -462,6 +483,9 @@ news_sources:
     category: News
   oann:
     base_url: https://www.oann.com
+    category: News
+  observer:
+    base_url: https://observer.com/
     category: News
   opensecrets:
     base_url: https://www.opensecrets.org/news
@@ -603,6 +627,9 @@ news_sources:
   st_louis_post_dispatch:
     base_url: https://www.stltoday.com
     category: News
+  standard:
+    base_url: https://www.standard.co.uk/
+    category: News
   star_tribune:
     base_url: https://www.startribune.com
     category: News
@@ -661,6 +688,9 @@ news_sources:
   the_hill:
     base_url: https://www.thehill.com
     category: Politics
+  the_independent:
+    base_url: https://www.independent.co.uk/
+    category: News
   the_information:
     base_url: https://www.theinformation.com
     category: Technology
@@ -673,6 +703,9 @@ news_sources:
   the_register:
     base_url: https://www.theregister.com
     category: Technology
+  the_scotsman:
+    base_url: https://www.thescotsman.com/
+    category: News
   the_sun:
     base_url: https://www.thesun.co.uk/
     category: News
