@@ -181,7 +181,8 @@ if __name__ == "__main__":
     try:
         config_path = Path(__file__).resolve().parent.parent / 'config.yml'
         handler = ConfigHandler(config_path)
-        config = handler.load_config()  # Use the instance method
+        handler.process_config()
+        config = handler.load_config()
 
         with LoggingHandler.logging_context(config):
             crawler, run_once = create_news_crawler()
