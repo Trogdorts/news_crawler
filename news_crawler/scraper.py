@@ -42,9 +42,9 @@ class NewsCrawler:
     def build_source(self, source):
         try:
             source.build()
-            logging.debug(f"Built source: {source}")
+            logging.debug(f"Built source: {source.url}")
         except Exception as e:
-            logging.error(f"Error building source: {e}", exc_info=True)
+            logging.error(f"Error building source {source.url}: {e}", exc_info=True)
             self.record_failure(source.url)
 
     def build_sources(self, max_workers):
@@ -82,7 +82,7 @@ class NewsCrawler:
                         article.nlp()
                         save_article(article, source, self.base_archive_directory, self.os_type)
                     except Exception as e:
-                        logging.error(f"Error processing article: {e}", exc_info=True)
+                        logging.error(f"Error processing article from source {source.url}: {e}", exc_info=True)
                         self.record_failure(source.url)
         except Exception as e:
             logging.error(f"Error extracting information: {e}", exc_info=True)
@@ -118,6 +118,7 @@ class NewsCrawler:
         try:
             news_sources = self.config.get('news_sources', {})
             base_urls = [source['base_url'] for source in news_sources.values() if not source.get('failed', False)]
+            logging.info(f"Retrieved {len(base_urls)} source URLs from configuration.")
             return base_urls
         except Exception as e:
             logging.error(f"Failed to get source URLs: {e}", exc_info=True)
@@ -161,8 +162,6 @@ def create_news_crawler():
             logging.critical("Configuration is None after loading. Exiting.")
             sys.exit(1)
 
-        LoggingHandler.setup_logging(config)
-
         base_archive_directory = check_and_create_base_directory(config['settings']['base_archive_dir'])
         utils.cache_disk.enabled = False
         run_once = config['settings']['run_once']
@@ -180,8 +179,13 @@ def create_news_crawler():
 
 if __name__ == "__main__":
     try:
-        crawler, run_once = create_news_crawler()
-        crawler.run(run_once)
+        config_path = Path(__file__).resolve().parent.parent / 'config.yml'
+        handler = ConfigHandler(config_path)
+        config = handler.load_config()  # Use the instance method
+
+        with LoggingHandler.logging_context(config):
+            crawler, run_once = create_news_crawler()
+            crawler.run(run_once)
 
     except KeyboardInterrupt:
         logging.info("Script interrupted by user.")

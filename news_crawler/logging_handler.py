@@ -3,10 +3,12 @@ from logging.handlers import RotatingFileHandler
 import warnings
 from pathlib import Path
 from typing import Dict
+from contextlib import contextmanager
 
 class LoggingHandler:
     @staticmethod
-    def setup_logging(config: Dict):
+    @contextmanager
+    def logging_context(config: Dict):
         log_config = config.get('logging', {})
         global_level = log_config.get('global_level', 'DEBUG')
         log_file = log_config.get('file', 'app.log')
@@ -43,6 +45,11 @@ class LoggingHandler:
 
         LoggingHandler._suppress_warnings()
         LoggingHandler._redirect_warnings_to_logging(stream_handler)
+
+        try:
+            yield
+        finally:
+            logging.shutdown()
 
     @staticmethod
     def _create_file_handler(log_file_path: Path, max_bytes: int, backup_count: int, level: str, formatter: logging.Formatter) -> RotatingFileHandler:
@@ -88,5 +95,5 @@ if __name__ == "__main__":
             'console_level': 'INFO'
         }
     }
-    LoggingHandler.setup_logging(config)
-    # Add any code that may generate FutureWarnings here to test the setup.
+    with LoggingHandler.logging_context(config):
+        logging.info("Logging setup complete. Add any code that may generate FutureWarnings here to test the setup.")
