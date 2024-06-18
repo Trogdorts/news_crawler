@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 
 class NewsCrawler:
     def __init__(self, config, base_archive_directory, language='en', max_workers=5, sources_per_batch=2, failed_source_threshold=5, failure_time_window_hours=24):
-        logging.info(f"Initializing NewsCrawler")
+        logging.info("Initializing NewsCrawler")
         self.config = config
         self.language = language
         self.first_run = True
