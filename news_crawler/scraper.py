@@ -73,19 +73,28 @@ class NewsCrawler:
     def extract_information(self):
         try:
             logging.info("Extracting information from articles")
-            for source in self.sources:
-                logging.debug(f"Processing source: {source.url}")
-                for article in source.articles:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                futures = []
+                for source in self.sources:
+                    for article in source.articles:
+                        futures.append(executor.submit(self.process_article, article, source))
+                for future in concurrent.futures.as_completed(futures):
                     try:
-                        article.download()
-                        article.parse()
-                        article.nlp()
-                        save_article(article, source, self.base_archive_directory, self.os_type)
+                        future.result()
                     except Exception as e:
-                        logging.error(f"Error processing article from source {source.url}: {e}", exc_info=True)
-                        self.record_failure(source.url)
+                        logging.error(f"Error processing an article: {e}", exc_info=True)
         except Exception as e:
             logging.error(f"Error extracting information: {e}", exc_info=True)
+
+    def process_article(self, article, source):
+        try:
+            article.download()
+            article.parse()
+            article.nlp()
+            save_article(article, source, self.base_archive_directory, self.os_type)
+        except Exception as e:
+            logging.error(f"Error processing article from source {source.url}: {e}", exc_info=True)
+            self.record_failure(source.url)
 
     def record_failure(self, url):
         now = datetime.now()
